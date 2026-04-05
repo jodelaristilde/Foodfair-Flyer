@@ -89,7 +89,7 @@ input[type=color]{width:32px;height:32px;padding:2px;border-radius:4px;border:1p
 
 /* HEADER: full image then yellow date ribbon below */
 #flyer-header{position:relative;z-index:1;background:#000;line-height:0;font-size:0}
-#flyer-header-img{width:100%;display:block;object-fit:contain;vertical-align:bottom;margin-bottom:-3px}
+#flyer-header-img{width:100%;display:block;object-fit:contain;object-position:center;vertical-align:bottom;margin-bottom:-3px}
 
 
 /* DATE RIBBON */
@@ -614,6 +614,8 @@ document.getElementById('modal-upload-input').onchange=e=>{
 loadLibrary().then(()=>renderLibraryGrid());
 
 // ── HEADER UPLOAD ──
+let headerChanged = false;
+
 document.getElementById('header-upload').onchange=e=>{
   const f=e.target.files[0]; if(!f)return;
   const r=new FileReader();
@@ -622,6 +624,7 @@ document.getElementById('header-upload').onchange=e=>{
     document.getElementById('header-preview').innerHTML=`<img src="${d}"/>`;
     document.getElementById('header-status').textContent=f.name;
     document.getElementById('flyer-header-img').src=d;
+    headerChanged=true;
     try{ await window.storage.set('header-image', JSON.stringify({dataUrl:d,name:f.name})); }catch(e){}
   };
   r.readAsDataURL(f); e.target.value='';
@@ -636,6 +639,7 @@ document.getElementById('header-upload').onchange=e=>{
       document.getElementById('flyer-header-img').src=dataUrl;
       document.getElementById('header-preview').innerHTML=`<img src="${dataUrl}"/>`;
       document.getElementById('header-status').textContent=name;
+      headerChanged=true;
     }
   }catch(e){}
 })();
@@ -818,17 +822,29 @@ async function capture(scale){
 function showLoad(m){document.getElementById('loading-msg').textContent=m;document.getElementById('loading-overlay').classList.add('open')}
 function hideLoad(){document.getElementById('loading-overlay').classList.remove('open')}
 
+function checkHeaderBeforeExport(){
+  if(!headerChanged){
+    alert('⚠️ Please upload your store header image before exporting!\n\nScroll up to the "Header Image" section and upload your custom header.');
+    document.getElementById('header-preview').scrollIntoView({behavior:'smooth',block:'center'});
+    return false;
+  }
+  return true;
+}
+
 document.getElementById('btn-pdf').onclick=async()=>{
+  if(!checkHeaderBeforeExport())return;
   showLoad('GENERATING PDF...');
   try{const c=await capture(2);const i=c.toDataURL('image/jpeg',.95);const{jsPDF}=window.jspdf;const pw=c.width/2*0.2646;const ph=c.height/2*0.2646;const p=new jsPDF({orientation:'portrait',unit:'mm',format:[pw,ph]});p.addImage(i,'JPEG',0,0,pw,ph);p.save('food-fair-flyer.pdf');}
   catch(e){console.error(e);alert('PDF failed – try PNG.');}hideLoad();
 };
 document.getElementById('btn-png').onclick=async()=>{
+  if(!checkHeaderBeforeExport())return;
   showLoad('GENERATING PNG...');
   try{const c=await capture(2);const a=document.createElement('a');a.download='food-fair-flyer.png';a.href=c.toDataURL('image/png');a.click();}
   catch(e){console.error(e);alert('PNG failed.');}hideLoad();
 };
 document.getElementById('btn-jpg').onclick=async()=>{
+  if(!checkHeaderBeforeExport())return;
   showLoad('GENERATING JPG...');
   try{const c=await capture(2);const a=document.createElement('a');a.download='food-fair-flyer.jpg';a.href=c.toDataURL('image/jpeg',.92);a.click();}
   catch(e){console.error(e);alert('JPG failed.');}hideLoad();
