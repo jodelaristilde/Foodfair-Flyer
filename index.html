@@ -9,7 +9,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@400;600&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--red:#cc1010;--yellow:#f5c518;--green:#1a7a1a;--dark:#1a1a1a;--white:#fff;--border:#ccc;--panel-bg:#fafafa;--flyer-bg:#ffffff;--grid-gap:#dddddd;--box-bg:#ffffff;--box-border-color:#cc1010;--box-radius:4px;--box-border-w:2px;--item-font:Oswald;--item-font-size:1.3rem}
+:root{--red:#cc1010;--yellow:#f5c518;--green:#1a7a1a;--dark:#1a1a1a;--white:#fff;--border:#ccc;--panel-bg:#fafafa;--flyer-bg:#ffffff;--grid-gap:#dddddd;--box-bg:#ffffff;--box-border-color:#cc1010;--box-radius:4px;--box-border-w:2px;--item-font:Oswald;--item-font-size:1.3rem;--price-color:#cc1010}
 body{font-family:'Source Sans 3',sans-serif;background:#e0e0e0;color:var(--dark);min-height:100vh}
 
 /* TOPBAR */
@@ -55,27 +55,29 @@ input[type=color]{width:32px;height:32px;padding:2px;border-radius:4px;border:1p
 .gbtn:hover{border-color:var(--red);color:var(--dark)}
 .gbtn.active{border-color:var(--dark);background:var(--dark);color:var(--yellow)}
 
-/* ITEM CARDS (controls) */
-.icard{background:var(--panel-bg);border:1px solid var(--border);border-radius:5px;overflow:hidden;margin-bottom:7px}
-.icard-hdr{background:var(--red);color:#fff;font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.8px;padding:6px 10px;text-transform:uppercase}
-.ibody{padding:9px;display:flex;flex-direction:column;gap:6px}
-.img-row{display:flex;align-items:center;gap:8px}
-.img-thumb{width:52px;height:52px;border-radius:4px;border:2px solid var(--border);background:#eee;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;overflow:hidden}
-.img-thumb img{width:100%;height:100%;object-fit:cover}
-.pick-btn{background:var(--dark);color:var(--yellow);border:none;border-radius:4px;font-family:'Oswald',sans-serif;font-size:.72rem;font-weight:600;padding:5px 9px;cursor:pointer;letter-spacing:.5px}
+/* ITEM CARDS (controls) — 3x3 grid */
+#items-container{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;padding:4px 0;}
+.icard{background:var(--panel-bg);border:1px solid var(--border);border-radius:5px;overflow:hidden;margin-bottom:0;display:flex;flex-direction:column;}
+.icard-hdr{background:var(--red);color:#fff;font-family:'Oswald',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.3px;padding:4px 5px;text-transform:uppercase;text-align:center;}
+.ibody{padding:5px;display:flex;flex-direction:column;gap:4px;flex:1;}
+.img-row{display:flex;align-items:center;gap:4px;}
+.img-thumb{width:100%;height:68px;border-radius:3px;border:2px solid var(--border);background:#eee;display:flex;align-items:center;justify-content:center;font-size:1.5rem;overflow:hidden;cursor:pointer;}
+.img-thumb:hover{border-color:var(--red);}
+.img-thumb img{width:100%;height:100%;object-fit:cover;}
+.pick-btn{width:100%;background:var(--dark);color:var(--yellow);border:none;border-radius:3px;font-family:'Oswald',sans-serif;font-size:.6rem;font-weight:600;padding:3px 2px;cursor:pointer;letter-spacing:.2px;}
 .pick-btn:hover{background:#333}
-.img-status{font-size:.68rem;color:#999}
-.badge-row{display:flex;gap:5px}
-.bbtn{flex:1;padding:5px 3px;border:2px solid var(--border);border-radius:4px;font-family:'Oswald',sans-serif;font-size:.68rem;font-weight:700;cursor:pointer;background:#fff;color:#999;text-align:center;transition:all .12s}
+.img-status{font-size:.58rem;color:#999;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.badge-row{display:flex;gap:2px;}
+.bbtn{flex:1;padding:3px 1px;border:2px solid var(--border);border-radius:3px;font-family:'Oswald',sans-serif;font-size:.52rem;font-weight:700;cursor:pointer;background:#fff;color:#999;text-align:center;transition:all .12s;white-space:nowrap;}
 .bbtn.ab{background:var(--red);color:#fff;border-color:var(--red)}
 .bbtn.abm{background:var(--green);color:#fff;border-color:var(--green)}
 .bbtn.an{background:#555;color:#fff;border-color:#555}
-.fmtrow{display:flex;gap:3px;flex-wrap:wrap}
-.fmtbtn{flex:1;padding:4px 2px;border:2px solid var(--border);border-radius:4px;font-size:.65rem;font-weight:600;cursor:pointer;background:#fff;color:#777;text-align:center;white-space:nowrap;font-family:'Oswald',sans-serif}
+.fmtrow{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.fmtbtn{padding:3px 1px;border:2px solid var(--border);border-radius:3px;font-size:.52rem;font-weight:600;cursor:pointer;background:#fff;color:#777;text-align:center;white-space:nowrap;font-family:'Oswald',sans-serif;}
 .fmtbtn.active{background:var(--dark);color:var(--yellow);border-color:var(--dark)}
-.price-row{display:flex;gap:5px}
-.pf{flex:1}
-.pf label{font-size:.68rem}
+.price-row{display:flex;gap:2px;}
+.pf{flex:1;}
+.pf label{font-size:.58rem;}
 
 /* PREVIEW */
 #preview-panel{background:#bbb;display:flex;flex-direction:column;align-items:center;padding:20px 14px;overflow-y:auto}
@@ -110,14 +112,14 @@ input[type=color]{width:32px;height:32px;padding:2px;border-radius:4px;border:1p
 
 /* INFO BOX */
 .flyer-info-box{width:100%;height:180px;min-height:180px;max-height:180px;padding:8px 8px 6px;display:flex;flex-direction:column;align-items:center;overflow:hidden;box-sizing:border-box}
-.flyer-price{font-family:'Oswald',sans-serif;font-weight:700;color:#cc1010;line-height:1;display:flex;align-items:flex-start;justify-content:center}
+.flyer-price{font-family:'Oswald',sans-serif;font-weight:700;color:var(--price-color);line-height:1;display:flex;align-items:flex-start;justify-content:center}
 .fp-dollar{font-size:1.5rem;margin-top:6px}
 .fp-main{font-size:4rem}
 .fp-cents{font-size:1.5rem;margin-top:6px}
 .fp-unit{font-size:1.1rem;margin-top:14px;align-self:flex-end;font-weight:700}
-.flyer-price-alt{font-family:'Oswald',sans-serif;font-size:2.6rem;font-weight:700;color:#cc1010}
-.fp-for-label{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:#cc1010;letter-spacing:1px;display:block;line-height:1.1}
-.fp-for-price{font-family:'Oswald',sans-serif;font-size:3.8rem;font-weight:700;color:#cc1010;line-height:1;display:block}
+.flyer-price-alt{font-family:'Oswald',sans-serif;font-size:2.6rem;font-weight:700;color:var(--price-color)}
+.fp-for-label{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:var(--price-color);letter-spacing:1px;display:block;line-height:1.1}
+.fp-for-price{font-family:'Oswald',sans-serif;font-size:3.8rem;font-weight:700;color:var(--price-color);line-height:1;display:block}
 .flyer-name-en{font-family:var(--item-font),sans-serif;font-size:var(--item-font-size);font-weight:700;color:#1a1a1a;text-transform:uppercase;margin-top:6px;line-height:1.15}
 .flyer-name-es{font-family:var(--item-font),sans-serif;font-size:calc(var(--item-font-size) * 0.82);color:#666;font-style:italic;line-height:1.2}
 .flyer-note{font-size:.9rem;color:#888;margin-top:5px;font-style:italic}
@@ -126,11 +128,11 @@ input[type=color]{width:32px;height:32px;padding:2px;border-radius:4px;border:1p
 #flyer-footer{position:relative;z-index:1;padding:6px 0;background:#ffffff;transition:background .2s}
 #flyer-footer-img{width:100%;display:block;position:relative;z-index:1}
 
-/* MODAL */
-#modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:1000;align-items:center;justify-content:center}
+/* IMAGE PICKER SIDE PANEL */
+#modal-overlay{display:none;position:fixed;top:48px;left:0;width:440px;bottom:0;background:#fff;z-index:500;border-right:2px solid #ddd;box-shadow:4px 0 18px rgba(0,0,0,.22);flex-direction:column;}
 #modal-overlay.open{display:flex}
-#modal-box{background:#fff;border-radius:8px;padding:18px;max-width:620px;width:95%;max-height:86vh;overflow-y:auto}
-#modal-box h3{font-family:'Oswald',sans-serif;font-size:1rem;margin-bottom:10px;color:var(--dark)}
+#modal-box{padding:14px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:10px;}
+#modal-box h3{font-family:'Oswald',sans-serif;font-size:1rem;margin-bottom:0;color:var(--dark)}
 #modal-upload-zone{background:#f7f7f7;border:2px dashed #bbb;border-radius:6px;padding:12px;margin-bottom:10px;display:flex;align-items:center;gap:10px}
 #modal-upload-input{display:none}
 #modal-upload-btn{background:var(--red);color:#fff;border:none;border-radius:4px;padding:8px 14px;font-family:'Oswald',sans-serif;cursor:pointer;font-size:.82rem;font-weight:600;white-space:nowrap}
@@ -327,28 +329,41 @@ input[type=color]{width:32px;height:32px;padding:2px;border-radius:4px;border:1p
           </div>
         </div>
 
-        <label style="margin-top:6px">🎉 Holiday Theme</label>
-        <div class="btn-grid">
-          <button class="gbtn active" data-theme="none">— None —</button>
-          <button class="gbtn" data-theme="newyear">🎉 New Year</button>
-          <button class="gbtn" data-theme="valentine">❤️ Valentine's Day</button>
-          <button class="gbtn" data-theme="stpatrick">☘️ St. Patrick's</button>
-          <button class="gbtn" data-theme="easter">🐣 Easter</button>
-          <button class="gbtn" data-theme="cincodemayo">🇲🇽 Cinco de Mayo</button>
-          <button class="gbtn" data-theme="mothersday">💐 Mother's Day</button>
-          <button class="gbtn" data-theme="memorialday">🎖️ Memorial Day</button>
-          <button class="gbtn" data-theme="fathersday">👔 Father's Day</button>
-          <button class="gbtn" data-theme="independence">🎆 4th of July</button>
-          <button class="gbtn" data-theme="laborday">💪 Labor Day</button>
-          <button class="gbtn" data-theme="halloween">🎃 Halloween</button>
-          <button class="gbtn" data-theme="thanksgiving">🦃 Thanksgiving</button>
-          <button class="gbtn" data-theme="christmas">🎄 Christmas</button>
-          <button class="gbtn" data-theme="christmas_eve">⭐ Christmas Eve</button>
-          <button class="gbtn" data-theme="hanukkah">🕎 Hanukkah</button>
-          <button class="gbtn" data-theme="kwanzaa">🕯️ Kwanzaa</button>
-          <button class="gbtn" data-theme="backtoschool">🍎 Back to School</button>
-          <button class="gbtn" data-theme="summer">☀️ Summer Sale</button>
+        <label style="margin-top:6px">💲 Price Text Color</label>
+        <div class="swatch-row" style="flex-wrap:wrap;gap:4px">
+          <div class="swatch active" style="background:#cc1010" data-price-color="#cc1010"></div>
+          <div class="swatch" style="background:#1a7a1a" data-price-color="#1a7a1a"></div>
+          <div class="swatch" style="background:#f5c518" data-price-color="#f5c518"></div>
+          <div class="swatch" style="background:#1a1a2e" data-price-color="#1a1a2e"></div>
+          <div class="swatch" style="background:#000" data-price-color="#000"></div>
+          <div class="swatch" style="background:#fff;border:1px solid #ccc" data-price-color="#fff"></div>
+          <div class="swatch" style="background:#e07000" data-price-color="#e07000"></div>
+          <div class="swatch" style="background:#0055cc" data-price-color="#0055cc"></div>
+          <div><input type="color" id="price-color-custom" value="#cc1010" style="width:26px;height:26px"/></div>
         </div>
+
+        <label style="margin-top:6px">🎉 Holiday Theme</label>
+        <select id="theme-select">
+          <option value="none">— None —</option>
+          <option value="newyear">🎉 New Year</option>
+          <option value="valentine">❤️ Valentine's Day</option>
+          <option value="stpatrick">☘️ St. Patrick's</option>
+          <option value="easter">🐣 Easter</option>
+          <option value="cincodemayo">🇲🇽 Cinco de Mayo</option>
+          <option value="mothersday">💐 Mother's Day</option>
+          <option value="memorialday">🎖️ Memorial Day</option>
+          <option value="fathersday">👔 Father's Day</option>
+          <option value="independence">🎆 4th of July</option>
+          <option value="laborday">💪 Labor Day</option>
+          <option value="halloween">🎃 Halloween</option>
+          <option value="thanksgiving">🦃 Thanksgiving</option>
+          <option value="christmas">🎄 Christmas</option>
+          <option value="christmas_eve">⭐ Christmas Eve</option>
+          <option value="hanukkah">🕎 Hanukkah</option>
+          <option value="kwanzaa">🕯️ Kwanzaa</option>
+          <option value="backtoschool">🍎 Back to School</option>
+          <option value="summer">☀️ Summer Sale</option>
+        </select>
       </div>
     </div>
 
@@ -474,34 +489,27 @@ function buildControls(){
     div.className='icard';
     const disp=it.imgData||it.imgSrc;
     div.innerHTML=`<div class="icard-hdr">ITEM ${i+1}</div><div class="ibody">
-      <div class="img-row">
-        <div class="img-thumb" id="th-${i}">${disp?`<img src="${disp}" crossorigin="anonymous"/>`:'🛒'}</div>
-        <div style="display:flex;flex-direction:column;gap:4px">
-          <button class="pick-btn" onclick="openPicker(${i})">PICK / UPLOAD</button>
-          <div class="img-status" id="is-${i}">${disp?'Image selected':'No image'}</div>
-        </div>
+      <div class="img-thumb" id="th-${i}" onclick="openPicker(${i})">${disp?`<img src="${disp}" crossorigin="anonymous"/>`:'🛒'}</div>
+      <button class="pick-btn" onclick="openPicker(${i})">📷 PICK / UPLOAD</button>
+      <div class="img-status" id="is-${i}">${disp?'✓ Image set':'No image'}</div>
+      <div class="badge-row">
+        <button class="bbtn ${it.badge==='barato'?'ab':''}" onclick="setBadge(${i},'barato',this)">BAR</button>
+        <button class="bbtn ${it.badge==='bonmache'?'abm':''}" onclick="setBadge(${i},'bonmache',this)">BON</button>
+        <button class="bbtn ${it.badge==='none'?'an':''}" onclick="setBadge(${i},'none',this)">—</button>
       </div>
-      <div><label>Badge</label><div class="badge-row">
-        <button class="bbtn ${it.badge==='barato'?'ab':''}" onclick="setBadge(${i},'barato',this)">BARATO</button>
-        <button class="bbtn ${it.badge==='bonmache'?'abm':''}" onclick="setBadge(${i},'bonmache',this)">BON MACHE</button>
-        <button class="bbtn ${it.badge==='none'?'an':''}" onclick="setBadge(${i},'none',this)">NONE</button>
-      </div></div>
       <div class="price-row">
         <div class="pf"><label>$</label><input type="text" value="${it.dollars}" placeholder="0" oninput="items[${i}].dollars=this.value;renderFlyer()"/></div>
         <div class="pf"><label>¢</label><input type="text" value="${it.cents}" placeholder="99" oninput="items[${i}].cents=this.value;renderFlyer()"/></div>
       </div>
-      <div><label>Format</label><div class="fmtrow">
-        <button class="fmtbtn ${it.format==='lb'?'active':''}" onclick="setFmt(${i},'lb',this)">$/LB</button>
-        <button class="fmtbtn ${it.format==='ea'?'active':''}" onclick="setFmt(${i},'ea',this)">$/EA</button>
-        <button class="fmtbtn ${it.format==='10for'?'active':''}" onclick="setFmt(${i},'10for',this)">10 FOR $</button>
+      <div class="fmtrow">
+        <button class="fmtbtn ${it.format==='lb'?'active':''}" onclick="setFmt(${i},'lb',this)">/LB</button>
+        <button class="fmtbtn ${it.format==='ea'?'active':''}" onclick="setFmt(${i},'ea',this)">/EA</button>
+        <button class="fmtbtn ${it.format==='10for'?'active':''}" onclick="setFmt(${i},'10for',this)">10$</button>
         <button class="fmtbtn ${it.format==='cents'?'active':''}" onclick="setFmt(${i},'cents',this)">¢99</button>
-      </div></div>
-      <div class="row2">
-        <div><label>EN</label><input type="text" value="${it.nameEn}" placeholder="Item name" oninput="items[${i}].nameEn=this.value;renderFlyer()"/></div>
-        <div><label>ES</label><input type="text" value="${it.nameEs}" placeholder='"Nombre"' oninput="items[${i}].nameEs=this.value;renderFlyer()"/></div>
       </div>
-      <div><label>Note</label><input type="text" value="${it.note}" placeholder="add note..." oninput="items[${i}].note=this.value;renderFlyer()"/></div>
-
+      <input type="text" value="${it.nameEn}" placeholder="EN name" oninput="items[${i}].nameEn=this.value;renderFlyer()" style="font-size:.6rem;padding:3px 4px;"/>
+      <input type="text" value="${it.nameEs}" placeholder='ES "Nombre"' oninput="items[${i}].nameEs=this.value;renderFlyer()" style="font-size:.6rem;padding:3px 4px;"/>
+      <input type="text" value="${it.note}" placeholder="Note..." oninput="items[${i}].note=this.value;renderFlyer()" style="font-size:.58rem;padding:3px 4px;"/>
     </div>`;
     c.appendChild(div);
   });
@@ -591,7 +599,6 @@ function setItemImg(i,src,dataUrl){
 }
 function closeModal(){document.getElementById('modal-overlay').classList.remove('open')}
 document.getElementById('modal-close-btn').onclick=closeModal;
-document.getElementById('modal-overlay').onclick=e=>{if(e.target===e.currentTarget)closeModal()};
 document.getElementById('modal-upload-input').onchange=e=>{
   const files=Array.from(e.target.files); if(!files.length||pickerTarget===null)return;
   files.forEach(f=>{
@@ -610,14 +617,28 @@ loadLibrary().then(()=>renderLibraryGrid());
 document.getElementById('header-upload').onchange=e=>{
   const f=e.target.files[0]; if(!f)return;
   const r=new FileReader();
-  r.onload=ev=>{
+  r.onload=async ev=>{
     const d=ev.target.result;
     document.getElementById('header-preview').innerHTML=`<img src="${d}"/>`;
     document.getElementById('header-status').textContent=f.name;
     document.getElementById('flyer-header-img').src=d;
+    try{ await window.storage.set('header-image', JSON.stringify({dataUrl:d,name:f.name})); }catch(e){}
   };
   r.readAsDataURL(f); e.target.value='';
 };
+
+// Restore saved header image on load
+(async()=>{
+  try{
+    const r=await window.storage.get('header-image');
+    if(r&&r.value){
+      const {dataUrl,name}=JSON.parse(r.value);
+      document.getElementById('flyer-header-img').src=dataUrl;
+      document.getElementById('header-preview').innerHTML=`<img src="${dataUrl}"/>`;
+      document.getElementById('header-status').textContent=name;
+    }
+  }catch(e){}
+})();
 
 
 
@@ -648,6 +669,9 @@ function setupColors(){
     document.querySelectorAll('[data-footer-bg]').forEach(x=>x.classList.remove('active'));
     setFooterBg(e.target.value);
   };
+  // Price color swatches
+  document.querySelectorAll('[data-price-color]').forEach(s=>{s.onclick=()=>{document.querySelectorAll('[data-price-color]').forEach(x=>x.classList.remove('active'));s.classList.add('active');document.getElementById('price-color-custom').value=s.dataset.priceColor;document.documentElement.style.setProperty('--price-color',s.dataset.priceColor);};});
+  document.getElementById('price-color-custom').oninput=e=>{document.querySelectorAll('[data-price-color]').forEach(x=>x.classList.remove('active'));document.documentElement.style.setProperty('--price-color',e.target.value);};
 }
 function setBg(c){
   document.documentElement.style.setProperty('--flyer-bg',c);
@@ -681,13 +705,8 @@ function setupShapes(){
 
 // ── HOLIDAY THEMES ──
 function setupThemes(){
-  document.querySelectorAll('[data-theme]').forEach(btn=>{
-    btn.onclick=()=>{
-      document.querySelectorAll('[data-theme]').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      applyTheme(btn.dataset.theme);
-    };
-  });
+  const sel=document.getElementById('theme-select');
+  sel.onchange=()=>applyTheme(sel.value);
 }
 function applyTheme(theme){
   currentTheme=theme;
@@ -746,7 +765,9 @@ function renderFlyer(){
   const sh=SHAPES[currentShape]||SHAPES.square;
   const noBox=(currentShape==='nobox');
 
-  items.forEach(it=>{
+  // Natural render order: Item 1–9 left-to-right, top-to-bottom
+  const renderOrder=[0,1,2,3,4,5,6,7,8];
+  renderOrder.map(idx=>items[idx]).forEach(it=>{
     const cell=document.createElement('div');
     cell.className='flyer-item'; cell.style.background=bg;
     const disp=it.imgData||it.imgSrc;
@@ -812,9 +833,12 @@ document.getElementById('btn-jpg').onclick=async()=>{
   try{const c=await capture(2);const a=document.createElement('a');a.download='food-fair-flyer.jpg';a.href=c.toDataURL('image/jpeg',.92);a.click();}
   catch(e){console.error(e);alert('JPG failed.');}hideLoad();
 };
-document.getElementById('btn-clear').onclick=()=>{
-  if(!confirm('Clear all 9 items?'))return;
+document.getElementById('btn-clear').onclick=async()=>{
+  if(!confirm('Clear all 9 items and your image library?'))return;
   items.forEach(it=>Object.assign(it,{imgSrc:'',imgData:'',badge:'none',dollars:'',cents:'',format:'lb',nameEn:'',nameEs:'',note:'',flag:'none'}));
+  imageLibrary=[];
+  await saveLibrary();
+  renderLibraryGrid();
   buildControls(); renderFlyer();
 };
 
