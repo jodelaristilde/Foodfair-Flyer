@@ -7,9 +7,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@400;600&family=Anton&family=Bebas+Neue&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--red:#cc1010;--yellow:#f5c518;--green:#1a7a1a;--dark:#1a1a1a;--white:#fff;--border:#ccc;--panel-bg:#fafafa;--flyer-bg:#ffffff;--grid-gap:#dddddd;--box-bg:#ffffff;--box-border-color:#cc1010;--box-radius:4px;--box-border-w:2px;--item-font:Oswald;--item-font-size:1.3rem;--price-color:#cc1010}
+:root{--red:#cc1010;--yellow:#f5c518;--green:#1a7a1a;--dark:#1a1a1a;--white:#fff;--border:#ccc;--panel-bg:#fafafa;--flyer-bg:#ffffff;--grid-gap:#dddddd;--box-bg:#ffffff;--box-border-color:#cc1010;--box-radius:4px;--box-border-w:2px;--item-font:Oswald;--item-font-size:1.7rem;--price-color:#cc1010;--price-size:4rem;--price-font:Anton}
 body{font-family:'Source Sans 3',sans-serif;background:#e0e0e0;color:var(--dark);min-height:100vh}
 
 /* TOPBAR */
@@ -57,9 +57,9 @@ input[type=color]{width:32px;height:32px;padding:2px;border-radius:4px;border:1p
 
 /* ITEM CARDS (controls) — 3x3 grid */
 #items-container{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;padding:4px 0;}
-.icard{background:var(--panel-bg);border:1px solid var(--border);border-radius:5px;overflow:hidden;margin-bottom:0;display:flex;flex-direction:column;}
+.icard{background:var(--panel-bg);border:1px solid var(--border);border-radius:5px;overflow:hidden;margin-bottom:0;display:flex;flex-direction:column;width:100%;}
 .icard-hdr{background:var(--red);color:#fff;font-family:'Oswald',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.3px;padding:4px 5px;text-transform:uppercase;text-align:center;}
-.ibody{padding:5px;display:flex;flex-direction:column;gap:4px;flex:1;}
+.ibody{padding:5px;display:flex;flex-direction:column;gap:4px;}
 .img-row{display:flex;align-items:center;gap:4px;}
 .img-thumb{width:100%;height:68px;border-radius:3px;border:2px solid var(--border);background:#eee;display:flex;align-items:center;justify-content:center;font-size:1.5rem;overflow:hidden;cursor:pointer;}
 .img-thumb:hover{border-color:var(--red);}
@@ -78,6 +78,7 @@ input[type=color]{width:32px;height:32px;padding:2px;border-radius:4px;border:1p
 .price-row{display:flex;gap:2px;}
 .pf{flex:1;}
 .pf label{font-size:.58rem;}
+.icard-input{width:100%;font-size:.6rem;padding:3px 4px;border:1px solid var(--border);border-radius:3px;font-family:'Source Sans 3',sans-serif;background:#fff;color:var(--dark);box-sizing:border-box;}
 
 /* PREVIEW */
 #preview-panel{background:#bbb;display:flex;flex-direction:column;align-items:center;padding:20px 14px;overflow-y:auto}
@@ -112,16 +113,16 @@ input[type=color]{width:32px;height:32px;padding:2px;border-radius:4px;border:1p
 
 /* INFO BOX */
 .flyer-info-box{width:100%;height:180px;min-height:180px;max-height:180px;padding:8px 8px 6px;display:flex;flex-direction:column;align-items:center;overflow:hidden;box-sizing:border-box}
-.flyer-price{font-family:'Oswald',sans-serif;font-weight:700;color:var(--price-color);line-height:1;display:flex;align-items:flex-start;justify-content:center}
-.fp-dollar{font-size:1.5rem;margin-top:6px}
-.fp-main{font-size:4rem}
-.fp-cents{font-size:1.5rem;margin-top:6px}
+.flyer-price{font-family:var(--price-font,'Anton'),sans-serif;font-weight:900;color:var(--price-color);line-height:1;display:flex;align-items:flex-start;justify-content:center;font-stretch:condensed;text-transform:uppercase;}
+.fp-dollar{font-size:1.5rem;margin-top:6px;font-family:var(--price-font,'Anton'),sans-serif;font-weight:900;}
+.fp-main{font-size:var(--price-size,4rem);font-family:var(--price-font,'Anton'),sans-serif;font-weight:900;}
+.fp-cents{font-size:1.5rem;margin-top:6px;font-family:var(--price-font,'Anton'),sans-serif;font-weight:900;}
 .fp-unit{font-size:1.1rem;margin-top:14px;align-self:flex-end;font-weight:700}
-.flyer-price-alt{font-family:'Oswald',sans-serif;font-size:2.6rem;font-weight:700;color:var(--price-color)}
-.fp-for-label{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:var(--price-color);letter-spacing:1px;display:block;line-height:1.1}
-.fp-for-price{font-family:'Oswald',sans-serif;font-size:3.8rem;font-weight:700;color:var(--price-color);line-height:1;display:block}
+.flyer-price-alt{font-family:var(--price-font,'Anton'),sans-serif;font-size:3.4rem;font-weight:900;color:var(--price-color);}
+.fp-for-label{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;color:var(--price-color);letter-spacing:2px;display:block;line-height:1.3;text-align:center;}
+.fp-for-price{font-family:var(--price-font,'Anton'),sans-serif;font-size:var(--price-size,4rem);font-weight:900;color:var(--price-color);line-height:1;display:block;text-align:center;}
 .flyer-name-en{font-family:var(--item-font),sans-serif;font-size:var(--item-font-size);font-weight:700;color:#1a1a1a;text-transform:uppercase;margin-top:6px;line-height:1.15}
-.flyer-name-es{font-family:var(--item-font),sans-serif;font-size:calc(var(--item-font-size) * 0.82);color:#666;font-style:italic;line-height:1.2}
+.flyer-name-es{font-family:var(--item-font),sans-serif;font-size:calc(var(--item-font-size) * 0.82);color:#1a1a1a;font-style:normal;font-weight:700;line-height:1.2}
 .flyer-note{font-size:.9rem;color:#888;margin-top:5px;font-style:italic}
 
 /* FOOTER */
@@ -165,30 +166,59 @@ input[type=color]{width:32px;height:32px;padding:2px;border-radius:4px;border:1p
     <button id="btn-png">PNG</button>
     <button id="btn-jpg">JPG</button>
     <button id="btn-clear">🗑 CLEAR ALL</button>
+    <button id="btn-library" style="background:#5b21b6;color:#fff;">📚 LIBRARY</button>
   </div>
 </div>
 
 <div class="loading-overlay" id="loading-overlay"><div class="spinner"></div><span id="loading-msg">GENERATING...</span></div>
 
-<!-- IMAGE PICKER MODAL -->
+<!-- IMAGE PICKER SIDE PANEL -->
 <div id="modal-overlay">
   <div id="modal-box">
     <h3>📸 MY IMAGE LIBRARY</h3>
     <div id="lib-section">
-      <h4>📂 MY LIBRARY <button id="lib-clear-btn" onclick="clearLibrary()" title="Remove all library images">CLEAR ALL</button></h4>
+      <h4 style="font-family:Oswald,sans-serif;font-size:.82rem;color:#555;margin:0 0 6px;display:flex;align-items:center;justify-content:space-between;">📂 MY LIBRARY <button id="lib-clear-btn" onclick="clearLibrary()" title="Remove all library images">CLEAR ALL</button></h4>
       <div id="lib-grid"></div>
-      <div id="lib-empty">Upload your product images below. They'll be saved here for reuse.</div>
+      <div id="lib-empty" style="font-size:.72rem;color:#aaa;font-style:italic;padding:4px 0;">Upload images below. Click any image to use it.</div>
     </div>
     <div id="modal-upload-zone">
-      <div style="flex:1">
-        <div style="font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:3px;">📁 UPLOAD TO LIBRARY</div>
-        <div style="font-size:.7rem;color:#999;">Select multiple images at once — JPG, PNG, WEBP</div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+        <div style="font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:700;">📁 ADD TO LIBRARY</div>
+        <input type="text" id="lib-name-input" placeholder="Product name in English..." style="font-size:.82rem;padding:5px 7px;border:1px solid #ccc;border-radius:4px;width:100%;"/>
+        <div id="lib-translate-status" style="font-size:.68rem;color:#999;font-style:italic;min-height:14px;"></div>
+        <div style="font-size:.68rem;color:#999;">Select image — Spanish auto-translates</div>
       </div>
-      <img id="modal-upload-preview"/>
-      <button id="modal-upload-btn" onclick="document.getElementById('modal-upload-input').click()">CHOOSE FILE</button>
+      <button id="modal-upload-btn" onclick="document.getElementById('modal-upload-input').click()" style="align-self:flex-end;">CHOOSE IMAGE</button>
       <input type="file" id="modal-upload-input" accept="image/*" multiple/>
     </div>
-    <button id="modal-close-btn">CANCEL</button>
+    <button id="modal-close-btn">✕ CLOSE</button>
+  </div>
+</div>
+
+<!-- FULL LIBRARY PAGE -->
+<div id="library-page" style="display:none;position:fixed;inset:0;background:#1a1a1a;z-index:900;flex-direction:column;overflow:hidden;">
+  <div style="background:#111;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:2px solid #f5c518;">
+    <div style="font-family:Oswald,sans-serif;font-size:1.1rem;font-weight:700;color:#f5c518;letter-spacing:2px;">📚 MY PRODUCT LIBRARY</div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <div style="display:flex;gap:6px;align-items:center;">
+        <input type="text" id="lib-page-name" placeholder="Product name in English..." style="font-size:.82rem;padding:6px 10px;border:none;border-radius:4px;width:220px;"/>
+        <button id="lib-page-upload-btn" style="background:#f5c518;color:#111;border:none;border-radius:4px;font-family:Oswald,sans-serif;font-size:.8rem;font-weight:700;padding:7px 14px;cursor:pointer;white-space:nowrap;">+ ADD IMAGE</button>
+        <input type="file" id="lib-page-upload-input" accept="image/*" multiple style="display:none;"/>
+      </div>
+      <div id="lib-page-translate-status" style="font-size:.7rem;color:#aaa;font-style:italic;min-width:120px;"></div>
+      <button id="lib-page-close" style="background:#444;color:#fff;border:none;border-radius:4px;font-family:Oswald,sans-serif;font-size:.8rem;font-weight:700;padding:7px 14px;cursor:pointer;">✕ CLOSE</button>
+    </div>
+  </div>
+  <div id="lib-page-grid" style="flex:1;overflow-y:auto;padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;align-content:start;"></div>
+  <div id="lib-page-empty" style="display:none;color:#666;font-family:Oswald,sans-serif;font-size:1rem;text-align:center;padding:60px;letter-spacing:1px;">NO IMAGES YET — ADD SOME ABOVE</div>
+
+  <!-- Slot picker popup -->
+  <div id="lib-slot-picker" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1100;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:8px;padding:20px;max-width:340px;width:95%;">
+      <div style="font-family:Oswald,sans-serif;font-size:1rem;font-weight:700;margin-bottom:12px;color:#1a1a1a;">ASSIGN TO WHICH ITEM SLOT?</div>
+      <div id="lib-slot-btns" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;"></div>
+      <button onclick="document.getElementById('lib-slot-picker').style.display='none'" style="width:100%;background:#888;color:#fff;border:none;border-radius:4px;font-family:Oswald,sans-serif;font-size:.82rem;font-weight:700;padding:8px;cursor:pointer;">CANCEL</button>
+    </div>
   </div>
 </div>
 
@@ -249,58 +279,6 @@ input[type=color]{width:32px;height:32px;padding:2px;border-radius:4px;border:1p
           <div><div style="font-size:.6rem;color:#999;margin-bottom:2px">Custom</div><input type="color" id="bg-custom" value="#ffffff"/></div>
         </div>
 
-        <label style="margin-top:4px">Footer Background Color</label>
-        <div class="swatch-row">
-          <div class="swatch active" style="background:#fff" data-footer-bg="#fff"></div>
-          <div class="swatch" style="background:#f5c518" data-footer-bg="#f5c518" title="Yellow"></div>
-          <div class="swatch" style="background:#cc1010" data-footer-bg="#cc1010" title="Red"></div>
-          <div class="swatch" style="background:#1a7a1a" data-footer-bg="#1a7a1a" title="Green"></div>
-          <div class="swatch" style="background:#000" data-footer-bg="#000" title="Black"></div>
-          <div class="swatch" style="background:#1a1a2e" data-footer-bg="#1a1a2e" title="Navy"></div>
-          <div><div style="font-size:.6rem;color:#999;margin-bottom:2px">Custom</div><input type="color" id="footer-bg-custom" value="#ffffff"/></div>
-        </div>
-
-        <label style="margin-top:4px">Grid Gap Color</label>
-        <div class="swatch-row">
-          <div class="swatch active" style="background:#ddd" data-grid="#ddd"></div>
-          <div class="swatch" style="background:#fff" data-grid="#fff" title="None"></div>
-          <div class="swatch" style="background:#cc1010" data-grid="#cc1010" title="Red"></div>
-          <div class="swatch" style="background:#1a7a1a" data-grid="#1a7a1a" title="Green"></div>
-          <div class="swatch" style="background:#000" data-grid="#000" title="Black"></div>
-          <div><div style="font-size:.6rem;color:#999;margin-bottom:2px">Custom</div><input type="color" id="grid-custom" value="#dddddd"/></div>
-        </div>
-
-        <label style="margin-top:6px">🔤 Item Description Font</label>
-        <div class="row2" style="gap:5px;margin-bottom:4px">
-          <select id="ctrl-item-font" onchange="setItemFont(this.value)">
-            <option value="Oswald">Oswald (Bold)</option>
-            <option value="'Source Sans 3'">Source Sans 3</option>
-            <option value="Impact">Impact</option>
-            <option value="Arial">Arial</option>
-            <option value="Georgia">Georgia</option>
-            <option value="'Times New Roman'">Times New Roman</option>
-            <option value="Verdana">Verdana</option>
-            <option value="Tahoma">Tahoma</option>
-          </select>
-          <select id="ctrl-item-fontsize" onchange="setItemFontSize(this.value)">
-            <option value="1rem">Small</option>
-            <option value="1.15rem">Medium</option>
-            <option value="1.3rem" selected>Large</option>
-            <option value="1.5rem">X-Large</option>
-            <option value="1.7rem">XX-Large</option>
-          </select>
-        </div>
-
-        <label style="margin-top:6px">📦 Info Box Shape</label>
-        <div class="btn-grid">
-          <button class="gbtn active" data-shape="square">⬛ Square</button>
-          <button class="gbtn" data-shape="rounded">▢ Rounded</button>
-          <button class="gbtn" data-shape="pill">💊 Pill</button>
-          <button class="gbtn" data-shape="cut">✦ Cut Corner</button>
-          <button class="gbtn" data-shape="sharp">◆ Slanted</button>
-          <button class="gbtn" data-shape="nobox">✕ No Box</button>
-        </div>
-
         <div class="row2" style="margin-top:4px">
           <div>
             <label>Box Fill Color</label>
@@ -329,7 +307,66 @@ input[type=color]{width:32px;height:32px;padding:2px;border-radius:4px;border:1p
           </div>
         </div>
 
-        <label style="margin-top:6px">💲 Price Text Color</label>
+        <label style="margin-top:6px">📦 Info Box Shape</label>
+        <div class="btn-grid">
+          <button class="gbtn active" data-shape="square">⬛ Square</button>
+          <button class="gbtn" data-shape="rounded">▢ Rounded</button>
+          <button class="gbtn" data-shape="pill">💊 Pill</button>
+          <button class="gbtn" data-shape="cut">✦ Cut Corner</button>
+          <button class="gbtn" data-shape="sharp">◆ Slanted</button>
+          <button class="gbtn" data-shape="nobox">✕ No Box</button>
+        </div>
+
+        <label style="margin-top:4px">Grid Gap Color</label>
+        <div class="swatch-row">
+          <div class="swatch active" style="background:#ddd" data-grid="#ddd"></div>
+          <div class="swatch" style="background:#fff" data-grid="#fff" title="None"></div>
+          <div class="swatch" style="background:#cc1010" data-grid="#cc1010" title="Red"></div>
+          <div class="swatch" style="background:#1a7a1a" data-grid="#1a7a1a" title="Green"></div>
+          <div class="swatch" style="background:#000" data-grid="#000" title="Black"></div>
+          <div><div style="font-size:.6rem;color:#999;margin-bottom:2px">Custom</div><input type="color" id="grid-custom" value="#dddddd"/></div>
+        </div>
+
+        <label style="margin-top:6px">🔤 Item Description Font</label>
+        <div class="row2" style="gap:5px;margin-bottom:4px">
+          <select id="ctrl-item-font" onchange="setItemFont(this.value)">
+            <option value="Oswald">Oswald (Bold)</option>
+            <option value="'Source Sans 3'">Source Sans 3</option>
+            <option value="Impact">Impact</option>
+            <option value="Arial">Arial</option>
+            <option value="Georgia">Georgia</option>
+            <option value="'Times New Roman'">Times New Roman</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Tahoma">Tahoma</option>
+          </select>
+          <select id="ctrl-item-fontsize" onchange="setItemFontSize(this.value)">
+            <option value="1rem">Small</option>
+            <option value="1.15rem">Medium</option>
+            <option value="1.3rem">Large</option>
+            <option value="1.5rem">X-Large</option>
+            <option value="1.7rem" selected>XX-Large</option>
+          </select>
+        </div>
+
+        <label style="margin-top:6px">🔡 Price Font</label>
+        <select id="ctrl-price-font" onchange="setPriceFont(this.value)">
+          <option value="Anton" selected>Anton — Bold Condensed</option>
+          <option value="'Bebas Neue'">Bebas Neue — Ultra Condensed</option>
+          <option value="Oswald">Oswald — Bold</option>
+          <option value="Impact">Impact — Heavy</option>
+        </select>
+
+        <label style="margin-top:6px">💲 Price Number Size</label>
+        <select id="ctrl-price-size" onchange="setPriceSize(this.value)">
+          <option value="2.8rem">Small</option>
+          <option value="3.5rem">Medium</option>
+          <option value="4rem" selected>Large</option>
+          <option value="5rem">X-Large</option>
+          <option value="6rem">XX-Large</option>
+          <option value="7rem">XXX-Large</option>
+        </select>
+
+        <label style="margin-top:6px">💲 Price Number Color</label>
         <div class="swatch-row" style="flex-wrap:wrap;gap:4px">
           <div class="swatch active" style="background:#cc1010" data-price-color="#cc1010"></div>
           <div class="swatch" style="background:#1a7a1a" data-price-color="#1a7a1a"></div>
@@ -341,6 +378,18 @@ input[type=color]{width:32px;height:32px;padding:2px;border-radius:4px;border:1p
           <div class="swatch" style="background:#0055cc" data-price-color="#0055cc"></div>
           <div><input type="color" id="price-color-custom" value="#cc1010" style="width:26px;height:26px"/></div>
         </div>
+
+        <label style="margin-top:4px">Footer Background Color</label>
+        <div class="swatch-row">
+          <div class="swatch active" style="background:#fff" data-footer-bg="#fff"></div>
+          <div class="swatch" style="background:#f5c518" data-footer-bg="#f5c518" title="Yellow"></div>
+          <div class="swatch" style="background:#cc1010" data-footer-bg="#cc1010" title="Red"></div>
+          <div class="swatch" style="background:#1a7a1a" data-footer-bg="#1a7a1a" title="Green"></div>
+          <div class="swatch" style="background:#000" data-footer-bg="#000" title="Black"></div>
+          <div class="swatch" style="background:#1a1a2e" data-footer-bg="#1a1a2e" title="Navy"></div>
+          <div><div style="font-size:.6rem;color:#999;margin-bottom:2px">Custom</div><input type="color" id="footer-bg-custom" value="#ffffff"/></div>
+        </div>
+        <div id="footer-color-preview" style="width:100%;height:28px;border-radius:4px;border:1px solid var(--border);background:#fff;margin-top:4px;transition:background .2s;display:flex;align-items:center;justify-content:center;"><span style="font-family:Oswald,sans-serif;font-size:.62rem;color:#aaa;letter-spacing:1px;">FOOTER PREVIEW</span></div>
 
         <label style="margin-top:6px">🎉 Holiday Theme</label>
         <select id="theme-select">
@@ -507,9 +556,9 @@ function buildControls(){
         <button class="fmtbtn ${it.format==='10for'?'active':''}" onclick="setFmt(${i},'10for',this)">10$</button>
         <button class="fmtbtn ${it.format==='cents'?'active':''}" onclick="setFmt(${i},'cents',this)">¢99</button>
       </div>
-      <input type="text" value="${it.nameEn}" placeholder="EN name" oninput="items[${i}].nameEn=this.value;renderFlyer()" style="font-size:.6rem;padding:3px 4px;"/>
-      <input type="text" value="${it.nameEs}" placeholder='ES "Nombre"' oninput="items[${i}].nameEs=this.value;renderFlyer()" style="font-size:.6rem;padding:3px 4px;"/>
-      <input type="text" value="${it.note}" placeholder="Note..." oninput="items[${i}].note=this.value;renderFlyer()" style="font-size:.58rem;padding:3px 4px;"/>
+      <input type="text" class="icard-input" value="${it.nameEn}" placeholder="EN name" oninput="items[${i}].nameEn=this.value;renderFlyer()"/>
+      <input type="text" class="icard-input" value="${it.nameEs}" placeholder='ES "Nombre"' oninput="items[${i}].nameEs=this.value;renderFlyer()"/>
+      <input type="text" class="icard-input" value="${it.note}" placeholder="Note..." oninput="items[${i}].note=this.value;renderFlyer()"/>
     </div>`;
     c.appendChild(div);
   });
@@ -542,24 +591,67 @@ async function loadLibrary(){
 async function saveLibrary(){
   try{ await window.storage.set('img-library',JSON.stringify(imageLibrary)); }catch(e){}
 }
-async function addToLibrary(dataUrl,name){
+// ── SPANISH TRANSLATION ──
+async function translateToSpanish(nameEn){
+  const dict={
+    'GREEN PLANTAINS':'PLATANO VERDE','PLANTAINS':'PLATANO','PLANTAIN':'PLATANO',
+    'YAMS':'NAME','SWEET POTATOES':'BATATA','COLOMBIAN YAMS':'NAME COLOMBIANO',
+    'TOMATOES':'TOMATE','TOMATO':'TOMATE','ROMA TOMATOES':'TOMATE ROMA',
+    'AVOCADO':'AGUACATE','AVOCADOS':'AGUACATE',
+    'YELLOW ONIONS':'CEBOLLA AMARILLA','ONIONS':'CEBOLLA','ONION':'CEBOLLA',
+    'WHOLE CHICKEN':'POLLO ENTERO','CHICKEN':'POLLO','CHICKEN LEGS':'PATAS DE POLLO',
+    'CHICKEN WINGS':'ALITAS DE POLLO','CHICKEN BREAST':'PECHUGA DE POLLO',
+    'BELL PEPPERS':'PIMIENTO','RED BELL PEPPERS':'PIMIENTO ROJO','PEPPERS':'PIMIENTO',
+    'TILAPIA FISH':'TILAPIA','TILAPIA':'TILAPIA','FISH':'PESCADO',
+    'GROUND BEEF':'CARNE MOLIDA','BEEF':'CARNE DE RES','OXTAIL':'RABO DE BUEY',
+    'PORK CHOPS':'CHULETA DE CERDO','PORK':'CERDO','PORK RIBS':'COSTILLAS DE CERDO',
+    'GOAT MEAT':'CARNE DE CHIVO','LAMB':'CORDERO','TURKEY':'PAVO',
+    'ICEBERG LETTUCE':'LECHUGA','LETTUCE':'LECHUGA',
+    'MANGOES':'MANGO','MANGO':'MANGO','SWEET CORN':'MAIZ DULCE','CORN':'MAIZ',
+    'BANANAS':'GUINEO','BANANA':'GUINEO','POTATOES':'PAPA','POTATO':'PAPA',
+    'LIMES':'LIMON','LIME':'LIMON','YUCA':'YUCA','CASSAVA':'YUCA','YUCA / CASSAVA':'YUCA',
+    'WATERMELON':'SANDIA','GRAPES':'UVAS','STRAWBERRIES':'FRESAS',
+    'ORANGES':'NARANJA','ORANGE':'NARANJA','APPLES':'MANZANA','APPLE':'MANZANA',
+    'GARLIC':'AJO','CILANTRO':'CILANTRO','CABBAGE':'REPOLLO','CARROTS':'ZANAHORIA',
+    'BROCCOLI':'BROCOLI','SPINACH':'ESPINACA','SHRIMP':'CAMARONES','SALMON':'SALMON',
+    'EGGS':'HUEVOS','EGG':'HUEVO','MILK':'LECHE','BUTTER':'MANTEQUILLA',
+    'RICE':'ARROZ','BEANS':'FRIJOLES','BLACK BEANS':'FRIJOLES NEGROS',
+    'PINTO BEANS':'FRIJOLES PINTOS','RED BEANS':'FRIJOLES ROJOS',
+    'PAPAYA':'PAPAYA','PINEAPPLE':'PINA','COCONUT':'COCO',
+    'CELERY':'APIO','CUCUMBER':'PEPINO','ZUCCHINI':'CALABACIN',
+    'EGGPLANT':'BERENJENA','JALAPEÑOS':'JALAPEÑOS','JALAPEÑO':'JALAPEÑO',
+    'SCALLIONS':'CEBOLLÍN','GREEN ONIONS':'CEBOLLA VERDE',
+    'SWEET PLANTAINS':'PLATANO MADURO','COD':'BACALAO','SARDINES':'SARDINAS',
+    'PORK FEET':'PATAS DE CERDO','PIG FEET':'PATAS DE CERDO',
+  };
+  const key=nameEn.toUpperCase().trim();
+  if(dict[key]) return `"${dict[key]}"`;
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:60,messages:[{role:"user",content:`Translate this grocery item to Spanish for a supermarket flyer. Return ONLY the Spanish name in ALL CAPS, nothing else. Item: ${nameEn}`}]})});
+    const data=await res.json();
+    const t=(data.content&&data.content[0]&&data.content[0].text||'').trim().toUpperCase();
+    if(t) return `"${t}"`;
+  }catch(e){}
+  return `"${nameEn.toUpperCase()}"`;
+}
+
+async function addToLibrary(dataUrl, nameEn, nameEs){
   const id='lib-'+Date.now()+'-'+Math.random().toString(36).slice(2,6);
-  imageLibrary.push({id,dataUrl,name});
+  imageLibrary.push({id, dataUrl, nameEn: nameEn||'', nameEs: nameEs||''});
   await saveLibrary();
   renderLibraryGrid();
+  renderLibraryPage();
 }
 async function removeFromLibrary(id){
   imageLibrary=imageLibrary.filter(x=>x.id!==id);
-  // also clear from any items using this image
-  items.forEach(it=>{if(it.imgData&&it.imgData===imageLibrary.find(x=>x.id===id)?.dataUrl){it.imgData='';it.imgSrc='';}});
   await saveLibrary();
   renderLibraryGrid();
+  renderLibraryPage();
   renderFlyer();
 }
 async function clearLibrary(){
   if(!confirm('Remove all images from your library?')) return;
   imageLibrary=[];
-  // clear all item images that came from library (all dataUrls)
   items.forEach(it=>{it.imgData='';});
   await saveLibrary();
   buildControls();
@@ -571,22 +663,33 @@ function renderLibraryGrid(){
   const empty=document.getElementById('lib-empty');
   if(!grid) return;
   grid.innerHTML='';
-  if(imageLibrary.length===0){
-    empty.style.display='block'; return;
-  }
+  if(imageLibrary.length===0){ empty.style.display='block'; return; }
   empty.style.display='none';
   imageLibrary.forEach(img=>{
     const d=document.createElement('div');
     d.className='lib-img-opt';
-    d.innerHTML=`<img src="${img.dataUrl}" /><button class="lib-del" onclick="event.stopPropagation();removeFromLibrary('${img.id}')" title="Remove">✕</button>`;
-    d.onclick=()=>{ setItemImg(pickerTarget,null,img.dataUrl); closeModal(); };
+    const enLabel=img.nameEn||img.name||'';
+    const esLabel=img.nameEs||'';
+    d.innerHTML=`<img src="${img.dataUrl}" />
+      <button class="lib-del" onclick="event.stopPropagation();removeFromLibrary('${img.id}')" title="Remove">✕</button>
+      ${enLabel?`<div style="font-size:.55rem;font-weight:700;background:rgba(255,255,255,.93);padding:1px 3px;text-align:center;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${enLabel}</div>`:''}
+      ${esLabel?`<div style="font-size:.52rem;background:rgba(255,255,255,.85);padding:1px 3px;text-align:center;line-height:1.3;font-style:italic;color:#555;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esLabel}</div>`:''}`;
+    d.onclick=()=>{
+      if(pickerTarget!==null){
+        items[pickerTarget].nameEn=enLabel;
+        items[pickerTarget].nameEs=esLabel;
+        setItemImg(pickerTarget,null,img.dataUrl);
+        buildControls();
+        renderFlyer();
+      }
+      closeModal();
+    };
     grid.appendChild(d);
   });
 }
 
 function openPicker(i){
   pickerTarget=i;
-  document.getElementById('modal-upload-preview').style.display='none';
   renderLibraryGrid();
   document.getElementById('modal-overlay').classList.add('open');
 }
@@ -594,24 +697,134 @@ function setItemImg(i,src,dataUrl){
   items[i].imgSrc=src||''; items[i].imgData=dataUrl||'';
   const disp=dataUrl||src;
   document.getElementById('th-'+i).innerHTML=disp?`<img src="${disp}" crossorigin="anonymous"/>`:'🛒';
-  document.getElementById('is-'+i).textContent=disp?'Image selected':'No image';
+  document.getElementById('is-'+i).textContent=disp?'✓ Image set':'No image';
   renderFlyer();
 }
 function closeModal(){document.getElementById('modal-overlay').classList.remove('open')}
 document.getElementById('modal-close-btn').onclick=closeModal;
-document.getElementById('modal-upload-input').onchange=e=>{
-  const files=Array.from(e.target.files); if(!files.length||pickerTarget===null)return;
-  files.forEach(f=>{
-    const r=new FileReader();
-    r.onload=ev=>{
-      addToLibrary(ev.target.result, f.name.replace(/\.[^.]+$/,''));
-    };
-    r.readAsDataURL(f);
-  });
+document.getElementById('modal-upload-input').onchange=async e=>{
+  const files=Array.from(e.target.files); if(!files.length)return;
+  const rawName=(document.getElementById('lib-name-input').value||'').trim();
+  const statusEl=document.getElementById('lib-translate-status');
+  for(const f of files){
+    const nameEn=(rawName||f.name.replace(/\.[^.]+$/,'')).toUpperCase();
+    statusEl.textContent='Translating...';
+    const nameEs=await translateToSpanish(nameEn);
+    statusEl.textContent=`🇪🇸 ${nameEs}`;
+    await new Promise(res=>{
+      const r=new FileReader();
+      r.onload=async ev=>{ await addToLibrary(ev.target.result, nameEn, nameEs); res(); };
+      r.readAsDataURL(f);
+    });
+    if(pickerTarget!==null){
+      const last=imageLibrary[imageLibrary.length-1];
+      items[pickerTarget].nameEn=nameEn;
+      items[pickerTarget].nameEs=nameEs;
+      setItemImg(pickerTarget,null,last.dataUrl);
+      buildControls();
+      renderFlyer();
+      closeModal();
+      break;
+    }
+  }
+  document.getElementById('lib-name-input').value='';
+  statusEl.textContent='';
   e.target.value='';
 };
 // Load library on start
-loadLibrary().then(()=>renderLibraryGrid());
+loadLibrary().then(()=>{ renderLibraryGrid(); renderLibraryPage(); });
+
+// ── FULL LIBRARY PAGE ──
+function renderLibraryPage(){
+  const grid=document.getElementById('lib-page-grid');
+  const empty=document.getElementById('lib-page-empty');
+  if(!grid) return;
+  grid.innerHTML='';
+  if(imageLibrary.length===0){
+    empty.style.display='block';
+    grid.style.display='none';
+    return;
+  }
+  empty.style.display='none';
+  grid.style.display='grid';
+  imageLibrary.forEach(img=>{
+    const enLabel=img.nameEn||img.name||'';
+    const esLabel=img.nameEs||'';
+    const card=document.createElement('div');
+    card.style.cssText='background:#2a2a2a;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;border:2px solid #333;transition:border-color .15s;cursor:pointer;';
+    card.onmouseover=()=>card.style.borderColor='#f5c518';
+    card.onmouseout=()=>card.style.borderColor='#333';
+    card.innerHTML=`
+      <div style="position:relative;">
+        <img src="${img.dataUrl}" style="width:100%;height:130px;object-fit:cover;display:block;"/>
+        <button onclick="event.stopPropagation();removeFromLibrary('${img.id}');renderLibraryPage();" style="position:absolute;top:5px;right:5px;background:rgba(0,0,0,.7);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:.65rem;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Delete">✕</button>
+      </div>
+      <div style="padding:8px;flex:1;display:flex;flex-direction:column;gap:3px;">
+        <div style="font-family:Oswald,sans-serif;font-size:.82rem;font-weight:700;color:#fff;line-height:1.2;">${enLabel||'<span style="color:#666;font-style:italic;">No name</span>'}</div>
+        <div style="font-family:Oswald,sans-serif;font-size:.72rem;color:#f5c518;font-style:italic;line-height:1.2;">${esLabel||''}</div>
+      </div>
+      <button onclick="event.stopPropagation();openSlotPicker('${img.id}');" style="margin:0 8px 8px;background:#cc1010;color:#fff;border:none;border-radius:4px;font-family:Oswald,sans-serif;font-size:.75rem;font-weight:700;padding:6px;cursor:pointer;letter-spacing:.5px;">USE IN FLYER →</button>`;
+    grid.appendChild(card);
+  });
+}
+
+let slotPickerImgId=null;
+function openSlotPicker(imgId){
+  slotPickerImgId=imgId;
+  const btns=document.getElementById('lib-slot-btns');
+  btns.innerHTML='';
+  for(let i=0;i<9;i++){
+    const it=items[i];
+    const btn=document.createElement('button');
+    btn.style.cssText='padding:8px 4px;border:2px solid #ddd;border-radius:4px;font-family:Oswald,sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;background:#fff;color:#333;text-align:center;line-height:1.3;';
+    btn.innerHTML=`ITEM ${i+1}${it.nameEn?'<br><span style="font-size:.6rem;color:#888;font-weight:400;">'+it.nameEn.slice(0,10)+'</span>':''}`;
+    btn.onclick=()=>{
+      const img=imageLibrary.find(x=>x.id===slotPickerImgId);
+      if(img){
+        items[i].nameEn=img.nameEn||img.name||'';
+        items[i].nameEs=img.nameEs||'';
+        setItemImg(i,null,img.dataUrl);
+        buildControls();
+        renderFlyer();
+      }
+      document.getElementById('lib-slot-picker').style.display='none';
+    };
+    btns.appendChild(btn);
+  }
+  document.getElementById('lib-slot-picker').style.display='flex';
+}
+
+document.getElementById('btn-library').onclick=()=>{
+  renderLibraryPage();
+  document.getElementById('library-page').style.display='flex';
+};
+document.getElementById('lib-page-close').onclick=()=>{
+  document.getElementById('library-page').style.display='none';
+};
+document.getElementById('lib-page-upload-btn').onclick=()=>{
+  document.getElementById('lib-page-upload-input').click();
+};
+document.getElementById('lib-page-upload-input').onchange=async e=>{
+  const files=Array.from(e.target.files); if(!files.length) return;
+  const rawName=(document.getElementById('lib-page-name').value||'').trim();
+  const statusEl=document.getElementById('lib-page-translate-status');
+  for(const f of files){
+    const nameEn=(rawName||f.name.replace(/\.[^.]+$/,'')).toUpperCase();
+    statusEl.textContent='Translating...';
+    const nameEs=await translateToSpanish(nameEn);
+    statusEl.textContent=`🇪🇸 ${nameEs}`;
+    await new Promise(res=>{
+      const r=new FileReader();
+      r.onload=async ev=>{ await addToLibrary(ev.target.result, nameEn, nameEs); res(); };
+      r.readAsDataURL(f);
+    });
+  }
+  document.getElementById('lib-page-name').value='';
+  statusEl.textContent='✓ Saved!';
+  setTimeout(()=>statusEl.textContent='',2000);
+  e.target.value='';
+  renderLibraryPage();
+};
 
 // ── HEADER UPLOAD ──
 let headerChanged = false;
@@ -661,6 +874,8 @@ function setupColors(){
     var el=document.getElementById('flyer-footer');
     el.style.setProperty('background',c,'important');
     document.getElementById('footer-bg-custom').value=c;
+    var prev=document.getElementById('footer-color-preview');
+    if(prev){prev.style.background=c;prev.querySelector('span').style.color=(c==='#fff'||c==='#ffffff')?'#aaa':'rgba(255,255,255,0.5)';}
   }
   document.querySelectorAll('[data-footer-bg]').forEach(s=>{
     s.onclick=()=>{
@@ -692,6 +907,14 @@ function setItemFont(f){
 }
 function setItemFontSize(s){
   document.documentElement.style.setProperty('--item-font-size',s);
+  renderFlyer();
+}
+function setPriceSize(s){
+  document.documentElement.style.setProperty('--price-size',s);
+  renderFlyer();
+}
+function setPriceFont(f){
+  document.documentElement.style.setProperty('--price-font',f);
   renderFlyer();
 }
 
@@ -752,11 +975,20 @@ function applyTheme(theme){
 
 // ── RENDER FLYER ──
 function buildPrice(it){
-  if(it.format==='10for')return`<div style="text-align:center;line-height:1;"><span class="fp-for-label">10 FOR</span><span class="fp-for-price">$${it.dollars||'?'}</span></div>`;
-  if(it.format==='cents')return`<div class="flyer-price-alt">¢${it.cents||'99'}</div>`;
+  if(it.format==='10for')return`<div class="flyer-price" style="flex-direction:column;align-items:center;justify-content:center;"><div style="display:flex;align-items:flex-start;justify-content:center;"><span class="fp-dollar">$</span><span class="fp-for-price">${it.dollars||'?'}</span><span class="fp-unit" style="align-self:flex-end;padding-bottom:6px;">FOR ${it.dollars||'?'}</span></div></div>`;
+  if(it.format==='cents')return`<div class="flyer-price" style="align-items:center;justify-content:center;"><span class="flyer-price-alt">¢${it.cents||'99'}</span></div>`;
   const d=it.dollars||'0';
   const c=it.cents?String(it.cents).padStart(2,'0'):'00';
   const u=it.format==='lb'?'/LB':'/EA';
+  const dollarsIsZero=(d==='0'||d==='');
+  // When dollars is 0: show $ + small 0, cents BIG. Otherwise: $ + big dollars, small cents
+  if(dollarsIsZero){
+    return`<div class="flyer-price" style="align-items:flex-end;gap:0px;">
+      <span class="fp-dollar" style="font-size:calc(var(--price-size,4rem) * 0.55);margin-bottom:6px;line-height:1;">$0.</span>
+      <span class="fp-main">${c}</span>
+      <span class="fp-unit">${u}</span>
+    </div>`;
+  }
   return`<div class="flyer-price"><span class="fp-dollar">$</span><span class="fp-main">${d}</span><span class="fp-cents">${c}</span><span class="fp-unit">${u}</span></div>`;
 }
 
@@ -798,7 +1030,7 @@ function renderFlyer(){
         +`-webkit-clip-path:${sh.clipPath};`;
     }
 
-    html+=`<div style="${boxStyle}">`;
+    html+=`<div class="flyer-info-box" style="${boxStyle}">`;
     html+=buildPrice(it);
     if(it.nameEn)html+=`<div class="flyer-name-en">${it.nameEn}</div>`;
     if(it.nameEs)html+=`<div class="flyer-name-es">${it.nameEs}</div>`;
@@ -808,6 +1040,45 @@ function renderFlyer(){
     cell.innerHTML=html;
     grid.appendChild(cell);
   });
+  // Auto-resize text to fit box after render
+  requestAnimationFrame(fitAllText);
+}
+
+function fitAllText(){
+  document.querySelectorAll('.flyer-item').forEach(cell=>{
+    const box=cell.querySelector('.flyer-info-box');
+    if(!box) return;
+    const nameEn=box.querySelector('.flyer-name-en');
+    const nameEs=box.querySelector('.flyer-name-es');
+    const note=box.querySelector('.flyer-note');
+    // Shrink EN name until it fits width
+    if(nameEn) fitWidth(nameEn, parseFloat(getComputedStyle(nameEn).fontSize), 7);
+    if(nameEs) fitWidth(nameEs, parseFloat(getComputedStyle(nameEs).fontSize), 6);
+    // Now shrink both until total height fits inside box
+    fitHeight(box, [nameEn, nameEs, note]);
+  });
+}
+
+function fitWidth(el, startSize, minSize){
+  let size=startSize;
+  el.style.fontSize=size+'px';
+  while(size>minSize && el.scrollWidth>el.offsetWidth+2){
+    size-=0.5;
+    el.style.fontSize=size+'px';
+  }
+}
+
+function fitHeight(box, els){
+  const maxH=box.clientHeight;
+  let iterations=0;
+  while(box.scrollHeight>maxH+2 && iterations<60){
+    els.forEach(el=>{
+      if(!el) return;
+      const cur=parseFloat(el.style.fontSize||getComputedStyle(el).fontSize);
+      if(cur>6) el.style.fontSize=(cur-0.5)+'px';
+    });
+    iterations++;
+  }
 }
 
 // ── EXPORT ──
